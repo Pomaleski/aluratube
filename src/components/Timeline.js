@@ -10,7 +10,7 @@ export const StyledTimeline = styled.div`
     margin-bottom: 16px;
     text-transform: capitalize;
   }
-  img {
+  .playlists img {
     aspect-ratio: 16/9;
     font-weight: 500;
     object-fit: cover;
@@ -18,13 +18,31 @@ export const StyledTimeline = styled.div`
     max-width: 210px;
     height: auto;
   }
+  .favoritos img {
+    border-radius: 100%;
+    width: 100px;
+  }
+  .favoritos a {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    max-width: 120px;
+  }
+  .favoritos span {
+    padding-top: 8px;
+    padding-right: 0px;
+    text-align: center;
+  }
+  .favoritos div {
+    grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
+    grid-auto-columns: minmax(120px,1fr);
+  }
   section {
     width: 100%;
     padding: 0;
     overflow: hidden;
     padding: 16px;
     div {
-      
       width: calc(100vw - 16px * 4);
       display: grid;
       grid-gap: 16px;

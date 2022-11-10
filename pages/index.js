@@ -15,7 +15,10 @@ function HomePage() {
             }}>
                 <Menu />
                 <Header />
-                <Timeline playlists={config.playlists} />
+                <Timeline
+                    playlists={config.playlists}
+                    favoritos={config.favorites}
+                />
             </div>
         </>
     );
@@ -24,24 +27,29 @@ function HomePage() {
 export default HomePage
 
 const StyledHeader = styled.div`
-    img {
+    section img {
         width: 80px;
         height: 80px;
         border-radius: 50%;
     }
     .user-info {
-        margin-top: 50px;
         display: flex;
         align-items: center;
         width: 100%;
         padding: 16px 32px;
         gap: 16px;
     }
+    .banner {
+        margin-top: 50px;
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
 `;
 function Header() {
     return (
         <StyledHeader>
-            {/* {<img src="banner" />} */}
+            {<img className="banner" src={config.banner} />}
             <section className="user-info">
                 <img src={`https://github.com/${config.github}.png`} />
                 <div>
@@ -60,12 +68,14 @@ function Header() {
 function Timeline(props) {
     const playlistNames = Object.keys(props.playlists);
 
+    const favoritosObj = Object.keys(props.favoritos);
+
     return (
         <StyledTimeline>
             {playlistNames.map((playlistName) => {
                 const videos = props.playlists[playlistName];
                 return (
-                    <section>
+                    <section className="playlists">
                         <h2>{playlistName}</h2>
                         <div>
                             {videos.map((video) => {
@@ -82,6 +92,22 @@ function Timeline(props) {
                     </section>
                 )
             })}
+            <section className="favoritos">
+                <h2>Favoritos</h2>
+                <div>
+                    {favoritosObj.map((favorito) => {
+                        const favoritos = props.favoritos[favorito];
+                        return (
+                            <a href={favoritos.url}>
+                                <img src={favoritos.profile} />
+                                <span>
+                                    {favoritos.name}
+                                </span>
+                            </a>
+                        )
+                    })}
+                </div>
+            </section>
         </StyledTimeline>
     )
 }

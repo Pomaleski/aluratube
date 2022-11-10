@@ -2,6 +2,19 @@
     "name": "Gabriel Pomaleski",
     "job": "Dev",
     "github": "Pomaleski",
+    "banner": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    "favorites": [
+        {
+            "name": "Mario Souto - Dev Soutinho",
+            "url": "https://www.youtube.com/c/DevSoutinho",
+            "profile": "https://yt3.ggpht.com/m8Yrqf0Y81L4mZ1Cq7rGnJ4NDHe6729rxiFZvWyy9-xd_Z7Osmza7J8NWpN1axMHcCb1oKJNgA=s88-c-k-c0x00ffffff-no-rj"
+        },
+        {
+            "name": "Alura Cursos Online",
+            "url": "https://www.youtube.com/user/aluracursosonline",
+            "profile": "https://yt3.ggpht.com/xqhIoXspeX7eqouJvNHl1xqpv9213Pl26ENZbuouXxO2RlDadjsveNXfgnj8GTUk7thFYUkVRg=s88-c-k-c0x00ffffff-no-rj"
+        }
+    ],
     "playlists": {
         "jogos": [
             {
