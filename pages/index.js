@@ -1,3 +1,4 @@
+import React from "react";
 import config from "../config.json";
 import styled from "styled-components"
 import { CSSReset } from "../src/components/CSSReset"
@@ -5,6 +6,7 @@ import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
 
 function HomePage() {
+    const [valorFiltro, setValorFiltro] = React.useState("");
     return (
         <>
             <CSSReset />
@@ -13,9 +15,13 @@ function HomePage() {
                 flexDirection: "column",
                 flex: 1,
             }}>
-                <Menu />
+                <Menu 
+                    valorFiltro={valorFiltro}
+                    setValorFiltro={setValorFiltro}
+                />
                 <Header />
                 <Timeline
+                    searchValue={valorFiltro}
                     playlists={config.playlists}
                     favoritos={config.favorites}
                 />
@@ -39,17 +45,16 @@ const StyledHeader = styled.div`
         padding: 16px 32px;
         gap: 16px;
     }
-    .banner {
-        margin-top: 50px;
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-    }
 `;
+const StyledBanner = styled.div`
+    background-color: blue;
+    background-image: url(${({ banner }) => banner});
+    height: 230px;
+`
 function Header() {
     return (
         <StyledHeader>
-            {<img className="banner" src={config.banner} />}
+            <StyledBanner banner={config.banner} />
             <section className="user-info">
                 <img src={`https://github.com/${config.github}.png`} />
                 <div>
@@ -65,7 +70,7 @@ function Header() {
     );
 }
 
-function Timeline(props) {
+function Timeline({ searchValue, ...props }) {
     const playlistNames = Object.keys(props.playlists);
 
     const favoritosObj = Object.keys(props.favoritos);
@@ -75,19 +80,25 @@ function Timeline(props) {
             {playlistNames.map((playlistName) => {
                 const videos = props.playlists[playlistName];
                 return (
-                    <section className="playlists">
+                    <section key={playlistName} className="playlists">
                         <h2>{playlistName}</h2>
                         <div>
-                            {videos.map((video) => {
-                                return (
-                                    <a href={video.url}>
-                                        <img src={video.thumb} />
-                                        <span>
-                                            {video.title}
-                                        </span>
-                                    </a>
-                                )
-                            })}
+                            {videos
+                                .filter((video) => {
+                                    const titleNormalized = video.title.toLowerCase();
+                                    const searchValueNormalized = searchValue.toLowerCase();
+                                    return titleNormalized.includes(searchValueNormalized);
+                                })
+                                .map((video) => {
+                                    return (
+                                        <a key={video.url} href={video.url}>
+                                            <img src={video.thumb} />
+                                            <span>
+                                                {video.title}
+                                            </span>
+                                        </a>
+                                    )
+                                })}
                         </div>
                     </section>
                 )
@@ -98,7 +109,7 @@ function Timeline(props) {
                     {favoritosObj.map((favorito) => {
                         const favoritos = props.favoritos[favorito];
                         return (
-                            <a href={favoritos.url}>
+                            <a key={favoritos.url} href={favoritos.url}>
                                 <img src={favoritos.profile} />
                                 <span>
                                     {favoritos.name}
